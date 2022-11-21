@@ -1,4 +1,8 @@
-
+server:
+  port: 8080
+  servlet:
+    context-path: /
+ 
 spring:
   datasource:
     url: jdbc:mariadb://127.0.0.1:3307/minicampus
@@ -23,7 +27,6 @@ spring:
           starttls:
             enable: true
 
-    
 mybatis:
   mapper-locations: mybatis/**/*.xml
   configuration:
