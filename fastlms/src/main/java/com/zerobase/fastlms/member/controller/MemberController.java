@@ -40,6 +40,7 @@ public class MemberController {
 	private final TakeCourseService takeCourseService;
 	
 	
+	
 	@RequestMapping("/member/login")
 	public String login() {
 		
@@ -47,15 +48,29 @@ public class MemberController {
 	}
 	
 	@PostMapping("/member/history")
-	public String history(HttpServletRequest request) {
+	public String history(HttpServletRequest request, Principal principal) {
 		
 		String userAgent = RequestUtils.getUserAgent(request);
 		String clientIp = RequestUtils.getClientIP(request);
 		
 		String userId = request.getParameter("username");
+	//	String userId = principal.getName();
 		boolean result = memberService.addLoginData(userId, userAgent, clientIp);
 		
-		return "redirect:/";
+		MemberDto dto = memberService.detatil(userId);
+		
+		if (dto != null) {
+			if(dto.isAdminYn()) {
+				return "redirect:/admin/main.do";
+			} else {
+				return "redirect:/";
+			}
+		} else {
+			return "redirect:/member/login";
+		}
+		
+		
+		
 	}
 	
 	@GetMapping("/member/find/password")

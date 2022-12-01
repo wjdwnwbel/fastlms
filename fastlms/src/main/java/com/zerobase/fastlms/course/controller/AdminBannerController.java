@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zerobase.fastlms.course.dto.BannerDto;
+import com.zerobase.fastlms.course.dto.CourseDto;
 import com.zerobase.fastlms.course.entity.Banner;
 import com.zerobase.fastlms.course.model.BannerInput;
 import com.zerobase.fastlms.course.model.BannerParam;
@@ -51,7 +52,7 @@ public class AdminBannerController extends BaseController{
 	}
 	
 	
-	@GetMapping("/admin/banner/add.do")
+	@GetMapping(value = {"/admin/banner/add.do", "/admin/banner/edit.do"})
 	public String add(Model model, HttpServletRequest request, BannerParam parameter) {
 		
 		model.addAttribute("banner", bannerService.list());
@@ -60,10 +61,16 @@ public class AdminBannerController extends BaseController{
 		boolean editMode = request.getRequestURI().contains("/edit.do");
 		BannerDto detail = new BannerDto();
 		
-		// 수정은 아직..
 		if(editMode) {
-			long id = parameter.getId();
+			long no = parameter.getNo();
 			
+			BannerDto existBanner = bannerService.getByNo(no);
+			if(existBanner == null) {
+				// 에러처리
+				model.addAttribute("message", "강좌정보가 존재하지 않습니다.");
+				return "common/error";
+			}
+			detail = existBanner;
 		}
 		
 		
@@ -73,8 +80,9 @@ public class AdminBannerController extends BaseController{
 		return "admin/banner/add";
 	}
 	
-	@PostMapping("/admin/banner/add.do")
+	@PostMapping(value = {"/admin/banner/add.do", "/admin/banner/edit.do"})
 	public String addSubmit(Model model, MultipartFile file, BannerInput parameter) {
+		
 		
 		if(file != null) {
 			String originalFilename = file.getOriginalFilename();
@@ -84,11 +92,12 @@ public class AdminBannerController extends BaseController{
 			
 			try {
 				file.transferTo(new File(baseLocalPath +"/"+ originalFilename));
+				
+				boolean result = bannerService.add(parameter, "/files/banner/"+ originalFilename);
 			} catch (Exception e) {
 				log.info(e.getMessage());
 			}}
 		
-		boolean result = bannerService.add(parameter);
 		
 		
 		return "redirect:/admin/banner/list.do";

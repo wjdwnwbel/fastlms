@@ -9,6 +9,7 @@
             border-collapse: collapse;
         }
         .list table th, .list table td {
+        	text-align: center;
             border:solid 1px #000;
         }
 
@@ -123,8 +124,8 @@
     	    		<td><input type="checkbox" th:value="${x.no}"></td>
     	    		<td> <p th:text="${x.no}">1</p> </td>
     	    		<td> <a th:href="'edit.do?no=' + ${x.no}" th:text="${x.bannerName}"></a> </td>
-    	    		<td> 이미지 </td>
-    	    		<td> <p th:text="${x.regDt}"></p> </td>
+    	    		<td> <img th:src="${x.filename}"> </td>
+    	    		<td> <p th:text="${#temporals.format(x.regDt, 'yyyy.MM.dd')}"></p> </td>
     	    	</tr>
     	   </tbody>
     	</table>

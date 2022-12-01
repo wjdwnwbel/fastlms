@@ -54,10 +54,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		// 관리자 역할에서만 접근 가능
 		http.authorizeHttpRequests().antMatchers("/admin/**")
 		.hasAuthority("ROLE_ADMIN");
+		/*
+		.anyRequest()
+		.hasAnyAuthority("ROLE_ADMIN", "ROLE_USER");
+		*/
 		
 		// 로그인 페이지 설정
 		// failureHandler는 실패하였을 때를 처리하는 핸들러
-		http.formLogin().loginPage("/member/login").successForwardUrl("/member/history").failureHandler(getFailureHandler())
+		http.formLogin()
+		.loginPage("/member/login")
+		.successForwardUrl("/member/history")
+		.failureHandler(getFailureHandler())
 		.permitAll();
 		
 		// 로그아웃 페이지 설정
@@ -68,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		// 권한에 대한 예외 페이지 설정
 		http.exceptionHandling().accessDeniedPage("/error/denied");
 		
-		super.configure(http);
+//		super.configure(http);
 	}
 	
 	
@@ -79,9 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(memberService).passwordEncoder(getPasswordEncoder());
-		
-		
-		super.configure(auth);
+//		super.configure(auth);
 	}
 
 	
@@ -92,7 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		
 		web.ignoring().antMatchers("/favicon.ico", "/files/**", "/fastlms/files/**");
 		
-		super.configure(web);
+//		super.configure(web);
 	}
 	
 }

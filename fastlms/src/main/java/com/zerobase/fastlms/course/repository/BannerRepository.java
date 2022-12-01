@@ -9,6 +9,9 @@ import com.zerobase.fastlms.course.entity.Banner;
 import com.zerobase.fastlms.course.entity.Course;
 
 public interface BannerRepository extends JpaRepository<Banner, Long> {
+	 
+	Optional<Banner> findByNo(long id);
+	Optional<Banner> findByBannerName(String name);
 	
 	
 }

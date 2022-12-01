@@ -19,5 +19,6 @@ public interface BannerService {
 	List<Banner> list();
 	// 배너 목록
 	List<BannerDto> list(BannerParam parameter);
-	boolean add(BannerInput parameter);
+	boolean add(BannerInput parameter, String urlFilename);
+	BannerDto getByNo(long id);
 }

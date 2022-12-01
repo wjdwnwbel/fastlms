@@ -65,26 +65,42 @@ public class BannerServiceImpl implements BannerService{
 
 	@Override
 	public List<Banner> list() {
-		List<Banner> categories = bannerRepository.findAll();
+		List<Banner> banners = bannerRepository.findAll();
 		
-        return categories;
+		
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+//		for(Banner b : banners) {
+//			b.setRegDt(LocalDateTime.now().format(formatter));
+//		}
+		
+        return banners;
 	}
 
 	@Override
-	public boolean add(BannerInput parameter) {
+	public boolean add(BannerInput parameter, String urlFilename) {
 		
 		Banner banner = Banner.builder()
-				
-				
-				
+				.bannerName(parameter.getBannerName())
+				.alterText("대체 이미지 입니다.")
+				.filename(urlFilename)
+				.urlFilename(parameter.getUrlFilename())
+				.target(parameter.getTarget())
+				.sortValue(parameter.getSortValue())
+				.regDt(LocalDateTime.now())
+				.frontYn(true)
 				.build();
 		
 		bannerRepository.save(banner);
 		
 		return true;
+	}
+
+	@Override
+	public BannerDto getByNo(long no) {
+		
+		return bannerRepository.findByNo(no).map(BannerDto::of).orElse(null);
 	} 
-	
-	
+
 	
 	
 }

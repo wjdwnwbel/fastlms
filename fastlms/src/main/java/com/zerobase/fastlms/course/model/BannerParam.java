@@ -6,6 +6,6 @@ import lombok.Data;
 public class BannerParam extends CommonParam{
 	
 	
-	long id;	//no
+	long no;	
 	long bannerName;
 }

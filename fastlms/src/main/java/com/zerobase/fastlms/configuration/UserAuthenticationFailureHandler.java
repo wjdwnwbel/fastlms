@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler{
 
@@ -30,4 +32,5 @@ public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 		
 		super.onAuthenticationFailure(request, response, exception);
 	}
+	
 }

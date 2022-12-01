@@ -3,6 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>메인 페이지</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$('.bxslider').bxSlider({
+			auto: true,
+			pause: 5000,
+		});
+	});
+</script>
 </head>
 <body>
 	<h1>메인 페이지</h1>
@@ -10,9 +23,17 @@
 	<div th:replace="/fragments/layout.html :: fragment-body-menu">
 	</div>
 
-
-	<div>
-		<img src="/files/2022/11/18/e3292eab60094bc48a9fa75974cd9ea8.png"/>
+	<div class="bxslider">
+		<div>
+			<a href="#"><img src="https://bxslider.com/assets/images/plant.jpg"></a>
+		</div>
+		<div>
+			<a href="#"><img src="https://bxslider.com/assets/images/daisies.jpg"></a>
+		</div>
+		<div>
+			<a href="#"><img src="https://bxslider.com/assets/images/succulents.jpg"></a>
+		</div>
 	</div>
+	
 </body>
 </html>

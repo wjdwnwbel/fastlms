@@ -27,7 +27,7 @@ public class Banner {
     String urlFilename;
     
     String target;
-    int sortValue;
-    boolean frontYn;
+    Integer sortValue;
+    Boolean frontYn;
     LocalDateTime regDt;
 }
